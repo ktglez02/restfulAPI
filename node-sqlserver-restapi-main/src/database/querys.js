@@ -1,8 +1,8 @@
 export const querys = {
-  getAllBooks: "SELECT TOP(500) * FROM [bookBase].[dbo].[bookdata]",
+  getAllBooks: "SELECT  * FROM bookdata",
   getBookById: "SELECT * FROM bookdata Where Id = @Id",
   addNewBook:
-    "INSERT INTO [bookBase].[dbo].[bookdata] (id, title, author, genre, avRating , ISBN, copiesSold, price, publisher, yearPublised, description) VALUES (@id, @title, @author, @genre, @avRating , @ISBN, @copiesSold, @price, @publisher, @yearPublised, @description);",
+    "INSERT INTO bookdata (id, title, author, genre, avRating , ISBN, copiesSold, price, publisher, yearPublised, description) VALUES (@id, @title, @author, @genre, @avRating , @ISBN, @copiesSold, @price, @publisher, @yearPublised, @description);",
   deleteBook: "DELETE FROM [bookBase].[dbo].[bookdata] WHERE Id= @Id",
   getTotalBooks: "SELECT COUNT(*) FROM bookBase.dbo.bookdata",
   updateBookById:

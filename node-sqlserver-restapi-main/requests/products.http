@@ -1,32 +1,25 @@
 @api = http://localhost:3000/api/books
 
+
 GET {{api}}
 
-### add a product
-POST http://localhost:3000/api/products
+###
+POST {{api}}
 Content-Type: application/json
 
 {
-    "name": "product 2",
-   "description": "some product",
-   "quantity": 10
+    "id": "B006", 
+    "Title": "fdbdgbgbgb",
+    "author": "fghyjytj",
+    "genre": "fghjyj",
+    "avRating": 4.5,
+    "ISBN": "978-0446310589",
+    "copiesSold": 40000000,
+    "price": 8.99,
+    "Publisher": "Grand Central Publishing",
+    "yearPublished": 1960,
+    "description": "To Kill a Mockingbird is a novel by Harper Lee published in 1960. It was immediately successful, winning the Pulitzer Prize, and has become a classic of modern American literature."
 }
 
-### get product
-{{api}}/10
-
-### delete product 
-DELETE {{api}}/10
-
-### get count
-{{api}}/count
-
-### update
-PUT {{api}}/11
-Content-Type: application/json
-
-{
-    "name": "laptop",
-    "description": "some laptop",
-    "quantity": 20
-}
+###
+GET {{api}}/1

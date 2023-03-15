@@ -1,11 +1,12 @@
-import { getConnection, querys, sql } from "../database";
+import { getConnection, querys, sql } from "../database/index.js";
 
 export const getBooks = async (req, res) => {
   try {
     const pool = await getConnection();
-    const result = await pool.request().query(querys.getAllBooks);
-    res.json(result.recordset);
+    const [result, fields] = await pool.query(querys.getAllBooks);
+    res.json(result);
   } catch (error) {
+    console.log(error.message); ``
     res.status(500);
     res.send(error.message);
   }
@@ -16,7 +17,7 @@ export const createNewBook = async (req, res) => {
   let { quantity } = req.body;
 
   // validating
-  if (description == null || name == null) {
+  if (description == null || id == null) {
     return res.status(400).json({ msg: "Bad Request. Please fill all fields" });
   }
 
@@ -26,8 +27,7 @@ export const createNewBook = async (req, res) => {
     const pool = await getConnection();
 
     await pool
-      .request()
-      .input("id", sql.Char, name)
+      .input("id", sql.Char, id)
       .input("title", sql.Char, title)
       .input("author", sql.Char, author)
       .input("genre", sql.Char, avRating)
@@ -52,7 +52,6 @@ export const getBookById = async (req, res) => {
     const pool = await getConnection();
 
     const result = await pool
-      .request()
       .input("id", req.params.id)
       .query(querys.getBookById);
     return res.json(result.recordset[0]);
@@ -67,7 +66,6 @@ export const deleteBookById = async (req, res) => {
     const pool = await getConnection();
 
     const result = await pool
-      .request()
       .input("id", req.params.id)
       .query(querys.deleteBook);
 
@@ -83,7 +81,7 @@ export const deleteBookById = async (req, res) => {
 export const getTotalBooks = async (req, res) => {
   const pool = await getConnection();
 
-  const result = await pool.request().query(querys.getTotalBooks);
+  const result = await pool.query(querys.getTotalBooks);
   console.log(result);
   res.json(result.recordset[0][""]);
 };
@@ -99,7 +97,6 @@ export const updateBookById = async (req, res) => {
   try {
     const pool = await getConnection();
     await pool
-      .request()
       .input("id", sql.Char, id)
       .input("title", sql.Char, title)
       .input("author", sql.Char, author)
@@ -116,5 +113,6 @@ export const updateBookById = async (req, res) => {
   } catch (error) {
     res.status(500);
     res.send(error.message);
+   
   }
 };
