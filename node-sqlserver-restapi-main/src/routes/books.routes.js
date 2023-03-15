@@ -6,7 +6,7 @@ import {
   deleteBookById,
   getTotalBooks,
   updateBookById,
-} from "../controllers/books";
+} from "../controllers/books.js";
 
 const router = Router();
 

@@ -1,20 +1,16 @@
-import sql from "mssql";
-import config from "../config";
+import sql from "mysql2";
+import config from "../config.js";
 
-export const dbSettings = {
+var connection = sql.createPool({
+  host: config.dbServer,
   user: config.dbUser,
   password: config.dbPassword,
-  server: config.dbServer,
   database: config.dbDatabase,
-  options: {
-    encrypt: true, // for azure
-    trustServerCertificate: true, // change to true for local dev / self-signed certs
-  },
-};
+});
 
 export const getConnection = async () => {
   try {
-    const pool = await sql.connect(dbSettings);
+    const pool = await connection.promise();
     return pool;
   } catch (error) {
     console.error(error);
